@@ -6,34 +6,37 @@ require('dotenv').config()
 const cors = require('cors')
 const PORT = 3000
 
-//Routes 
-//const auth = require('./routers/auth')
-const meals = require('./routers/meals')
-const orders = require('./routers/orders')
+//require Routes
+const authRouter = require('./routers/authRouter')
+const verifyToken = require('./middleware/validate-token')
+const admin = require('./routers/admin')
+const URI = `mongodb+srv://${process.env.USERDB}:${process.env.PASSWORD}@cluster0.jltub.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
 
-
+//Middleware
 const app = express()
 app.use(helmet())
 app.use(cors())
 
-// capturar body
+// capture body
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const uri = `mongodb+srv://${process.env.USERDB}:${process.env.PASSWORD}@cluster0.jltub.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
-const option = { useNewUrlParser: true, useUnifiedTopology: true }
-mongoose.connect(uri, option)
-    .then(() => console.log('Base de datos conectada'))
-    .catch(e => console.log('error db:', e))
+// connect to database
+mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() =>{
+    console.log(`Base de datos conectada`)
+}).catch(e => console.log(e))
 
-
-//app.use('/api/auth', auth)
-app.use('/api/meals', meals)
-app.use('/api/orders', orders)
+// route middlewares
+app.use('/auth', authRouter)
+app.use('/admin', verifyToken, admin)
 
 
 app.listen(PORT, () =>{
     console.log(`Server estarted in the PORT ${PORT}`);
 })
 
-exports.app = app
+
+module.exports = app
