@@ -7,7 +7,8 @@ const URI = `mongodb+srv://${process.env.USERDB}:${process.env.PASSWORD}@cluster
 mongoose.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: true
+    useFindAndModify: true,
+    useCreateIndex: true
 }).then(() =>{
     console.log(`Base de datos conectada`)
 }).catch(e => console.log(e))
