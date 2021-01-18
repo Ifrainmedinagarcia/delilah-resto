@@ -1,17 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const userControllers = require('../controllers/users.controllers')
+const verifyToken = require('../middleware/validate-token.middleware')
 
 
-router.route('/')
-    .get((req, res) =>{
-        res.json({
-            error: null,
-            data:{
-                title: 'Mi ruta protegida',
-                user: req.user
-            }
-        })
-    })
+router.post('/', [verifyToken.verifyToken ,verifyToken.isAdmin], userControllers.createUser)
 
 module.exports = router
 

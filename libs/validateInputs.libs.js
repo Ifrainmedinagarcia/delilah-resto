@@ -3,7 +3,7 @@ const schemaRegister = Joi.object({
     name: Joi.string().min(6).max(255).required(),
     email: Joi.string().min(6).max(255).required().email(),
     password: Joi.string().min(6).max(1024).required(),
-    admin : Joi.boolean()
+    roles: Joi.array()
 })
 
 const schemaLogin = Joi.object({
