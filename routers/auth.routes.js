@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const User = require('../models/userModels')
-const validateRegister = require('../controllers/validateInputs').schemaRegister
-const validateLogin = require('../controllers/validateInputs').schemaLogin
+const User = require('../models/user.models')
+const validateRegister = require('../libs/validateInputs.libs').schemaRegister
+const validateLogin = require('../libs/validateInputs.libs').schemaLogin
 
 
 router.route('/login')
