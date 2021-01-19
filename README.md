@@ -17,6 +17,8 @@ Crear el backend para un sistema de pedidos online para un restaurante.
 
 - Agregar Productos: POST api/products
 
+- Consultar Productos: GET api/products
+
 - Eliminar Productos: DELETE apis/products/:productId
 
-- Actualizar Platos: PUT api/products/:productId
+- Actualizar Productos: PUT api/products/:productId

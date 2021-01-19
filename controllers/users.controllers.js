@@ -30,7 +30,7 @@ const createUser = (req, res) =>{
             const role = await Roles.findOne({Name:'user'})
             user.roles = [role._id]
         }
-
+        
         try {
             const saveUser = await user.save()
             res.status(200).json({
