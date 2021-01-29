@@ -1,12 +1,12 @@
 const sequelize = require('../conexion')
 
 const createMeals = async (req, res) =>{
-    const {nombre, precio, imagen} = req.body
+    const {nombre, precio, img} = req.body
 
-    let arrayInsertAlbum = [`${nombre}`, `${precio}`, `${imagen}`]
+    let arrayInsertAlbum = [`${nombre}`, `${precio}`, `${img}`]
 
     try {
-        const result = await sequelize.query('INSERT INTO meals (nombre, precio, imagen) VALUES( ?, ?, ?)',
+        const result = await sequelize.query('INSERT INTO meals (nombre, precio, img) VALUES( ?, ?, ?)',
         {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
         res.status(201).json({
             message: 'producto creado ',
@@ -42,12 +42,12 @@ const getMealsId = async (req, res) =>{
 }
 
 const updateMealsById = async (req, res) =>{
-    const { nombre, precio, imagen } = req.body
+    const { nombre, precio, img } = req.body
 
     try {
         const result = await sequelize.query(`UPDATE meals 
         SET nombre = "${nombre}",  
-        precio = "${precio}", imagen = "${imagen}"  
+        precio = "${precio}", img = "${img}"  
         WHERE id_meal = ${req.params.mealsId}`,
         { type: sequelize.QueryTypes.INSERT })
         console.log(result);

@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
-const User = require('../models/user.models')
-const Roles = require('../models/role.models')
+const sequelize = require('../conexion')
 require('dotenv').config()
 
 const verifyToken = async (req, res, next)=>{
@@ -10,8 +9,8 @@ const verifyToken = async (req, res, next)=>{
     }
     try {
         const verify = jwt.verify(token, process.env.TOKEN_SECRET)
-        /* req.user = verify */
-        console.log(verify);
+        req.user = verify
+        console.log('este es el verify ', verify);
         next()
     } catch (error) {
         res.status(400).json({error: 'token no válido'})
@@ -19,16 +18,14 @@ const verifyToken = async (req, res, next)=>{
 }
 
 const isAdmin = async (req, res, next) =>{
-    const user = await User.findById(req.user.id)
-    const roles = await Roles.find({_id: {$in: user.roles}})
-    console.log(roles);
-    for (let i = 0; i < roles.length; i++) {
-        if (roles[i].Name === 'admin') {
+    const token = req.header('Authorization')
+    const verify = jwt.verify(token, process.env.TOKEN_SECRET)
+        if (verify.id_role === 1) {
             next()
-            console.log(roles[i].Name);
+            console.log(verify.nombre);
             return
         }
-    }
+
     return res.status(403).json({message: 'Require admin role'})
 }
 
