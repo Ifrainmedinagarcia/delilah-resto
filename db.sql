@@ -6,7 +6,7 @@ CREATE table meals (
 	id_meal int not null primary key auto_increment,
 	nombre varchar(255),
 	precio int,
-	imagen MEDIUMBLOB,
+	imagen varchar(255),
 	date_creation timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -17,10 +17,7 @@ CREATE table orders (
 );
 
 -- if no exist (table database)
--- cambiar blob a varchar
--- NUNCA SE SUBE UN BINARIO A LA DB
--- cambiar ñ y tiempo de token en variable de entorno
--- mode de desarrollo o producción (varibale de entorno)
+
 
 
 
