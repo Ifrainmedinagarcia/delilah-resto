@@ -10,7 +10,8 @@ const verifyToken = async (req, res, next)=>{
     }
     try {
         const verify = jwt.verify(token, process.env.TOKEN_SECRET)
-        req.user = verify
+        /* req.user = verify */
+        console.log(verify);
         next()
     } catch (error) {
         res.status(400).json({error: 'token no válido'})

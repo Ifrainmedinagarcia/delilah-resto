@@ -1,5 +1,4 @@
-const User = require('../models/user.models')
-const Roles = require('../models/role.models')
+const sequelize = require('../conexion')
 const validateRegister = require('../libs/validateInputs.libs').schemaRegister
 const validateLogin = require('../libs/validateInputs.libs').schemaLogin
 const jwt = require('jsonwebtoken')
@@ -14,72 +13,89 @@ const singIn = async (req, res) =>{
             })
         }
 
-        const user = await User.findOne({email: req.body.email})
-        if (!user) {
-            return res.status(400).json({error: 'Usuario y/o contraseña inválida'})
-        }
+        try {
+            let user = await sequelize.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, 
+            {type: sequelize.QueryTypes.SELECT})
 
-        const validPassword = await bcrypt.compare(req.body.password, user.password)
-        if (!validPassword) {
+            console.log(user)
+            user = user[0]
+
+            if (!user) {
             return res.status(400).json({error: 'Usuario y/o contraseña inválida'})
-        }
+            }
+            console.log(req.body.contrasena, user.contrasena)
+
+            const validPassword = await bcrypt.compare(req.body.contrasena, user.contrasena, function(err, response) {
+                if(err){
+                    return response.status(400)
+                }
+                if (response) {
+                    const token = jwt.sign({
+                        nombre: user.nombre,
+                        id_user: user.id_user,
+                        id_role: user.id_role
+                    }, process.env.TOKEN_SECRET, {
+                        expiresIn: 86400
+                    })
         
-        const token = jwt.sign({
-            name: user.name,
-            id: user._id
-        }, process.env.TOKEN_SECRET, {
-            expiresIn: 86400
-        })
+                res.header('Authorization', token).json({
+                    error: null,
+                    data: `Bienvenido ${user.name}`,
+                    token
+                })
+                }else{
+                    return res.status(400).json({error: 'Usuario y/o contraseña inválida'})
+                }
+            }                
+                )
+          /*   
+            if (!validPassword) {
+            return res.status(400).json({error: 'Usuario y/o contraseña inválida'})
+            } */
+        
+           
 
-        res.header('Authorization', token).json({
-            error: null,
-            data: `Bienvenido ${user.name}`,
-            token
+    } catch (error) {
+        res.status(400).json({
+            error
         })
+        console.log(error);
+    }
+
+   
+
 }
 
+        
+
 const singUp = async (req, res) =>{
-    const {name, email, password, roles} = req.body
+    const {nombre, email, phone, address, contraseña, id_role} = req.body
+
         const { error } = validateRegister.validate(req.body)
         if (error) {
             return res.status(400).json({
                 error: error.details[0].message
             })
         }
-        const isEmailExist = await User.findOne({email})
-        if (isEmailExist) {
-            return res.status(400).json({
-                error: 'Email ya registrado'
-            })
-        }
+
         //hash password
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(password, salt);
-        
-        const user = new User({
-            name,
-            email,
-            password: passwordHash,
-            roles
-        })
-
-        if (roles) {
-            const foundRoles = await Roles.find({Name: {$in: roles}})
-            user.roles = foundRoles.map(role => role._id)
-        }else{
-            const role = await Roles.findOne({Name:'user'})
-            user.roles = [role._id]
-        }
-
+        const salt = await bcrypt.genSalt(10)
+        const passwordHash = await bcrypt.hash(contraseña, salt)
+       
+        let arrayInsertAlbum = [`${nombre}`, `${email}`, `${phone}`, `${address}`, `${passwordHash}`, `${id_role}`]
+       
         try {
-            const saveUser = await user.save()
-            res.status(200).json({
-                error: null,
-                data: saveUser
+            const result = await sequelize.query('INSERT INTO users (nombre, email, phone, address, contraseña, id_role) VALUES( ?, ?, ?, ?, ?, ?)',
+            {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
+            res.status(201).json({result})
+        }catch (error) {
+            console.log(`error en la inserción ${error}`)
+            res.status(400).json({
+                message : 'Usuario ya existe'
             })
-        } catch (error) {
-            res.status(400).json({ error })
         }
+
+        //TODO: SequelizeUniqueConstraintError: Validation error   
 }
 
 exports.singIn = singIn

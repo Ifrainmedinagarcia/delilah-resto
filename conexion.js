@@ -1,16 +1,17 @@
-const mongoose = require('mongoose')
-require('dotenv').config()
+const Sequelize = require('sequelize')
+const path = 'mysql://root:@localhost:3306/delilah'
 
-const URI = `mongodb+srv://${process.env.USERDB}:${process.env.PASSWORD}@cluster0.jltub.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
+const sequelize = new Sequelize(path, {
+    dialect: 'mysql',
+    operatorsAliases: 0 ,
+    logging: false,
+});
 
-// connect to database
-mongoose.connect(URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: true,
-    useCreateIndex: true
-}).then(() =>{
-    console.log(`Base de datos conectada`)
-}).catch(e => console.log(e))
+sequelize.authenticate()
+    .then(() => {
+        console.log('Conectado.');
+    }).catch(err => {
+        console.error('Error de conexion:', err);
+    })
 
-module.exports = mongoose;
+module.exports = sequelize;

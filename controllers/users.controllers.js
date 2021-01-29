@@ -1,45 +1,42 @@
-const createUser = (req, res) =>{
-    const {name, email, password, roles} = req.body
-        const { error } = validateRegister.validate(req.body)
-        if (error) {
-            return res.status(400).json({
-                error: error.details[0].message
-            })
-        }
-        const isEmailExist = await User.findOne({email})
-        if (isEmailExist) {
-            return res.status(400).json({
-                error: 'Email ya registrado'
-            })
-        }
-        //hash password
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(password, salt);
-        
-        const user = new User({
-            name,
-            email,
-            password: passwordHash,
-            roles
-        })
+const sequelize = require('../conexion')
+const bcrypt =require('bcrypt')
 
-        if (roles) {
-            const foundRoles = await Roles.find({Name: {$in: roles}})
-            user.roles = foundRoles.map(role => role._id)
-        }else{
-            const role = await Roles.findOne({Name:'user'})
-            user.roles = [role._id]
-        }
-        
-        try {
-            const saveUser = await user.save()
-            res.status(200).json({
-                error: null,
-                data: saveUser
-            })
-        } catch (error) {
-            res.status(400).json({ error })
-        }
+const createUser = async (req, res) =>{
+
+    const {nombre, email, phone, address, contraseña, id_role} = req.body
+
+ /*    const isEmailExist = await sequelize.query(`SELECT email FROM users WHERE email = ${email}`)
+    if (isEmailExist) {
+        return res.status(400).json({
+            error: 'Email ya registrado'
+        })
+    } */
+
+    //hash password
+    const salt = await bcrypt.genSalt(10)
+    const passwordHash = await bcrypt.hash(contraseña, salt)
+
+    let arrayInsertAlbum = [`${nombre}`, `${email}`, `${phone}`, `${address}`, `${passwordHash}`, `${id_role}`]
+
+    try {
+        const result = await sequelize.query('INSERT INTO users (nombre, email, phone, address, contraseña, id_role) VALUES( ?, ?, ?, ?, ?, ?)',
+        {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
+        res.status(201).json({result})
+    }catch (error) {
+        console.log(`error en la inserción ${error}`)
+    }
+
+}
+
+const getUsers = async (req, res) =>{
+    try {
+        const result = await sequelize.query('SELECT * FROM users', {type: sequelize.QueryTypes.SELECT})
+        console.log(result)
+        res.status(200).json({result})
+    } catch (error) {
+        console.log(`error en la inserción ${error}`)
+    }
 }
 
 exports.createUser = createUser
+exports.getUsers = getUsers
