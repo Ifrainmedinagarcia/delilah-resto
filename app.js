@@ -9,6 +9,7 @@ const PORT = 3000
 const authRouter = require('./routers/auth.routes')
 const mealsRouter = require('./routers/meals.routes')
 const usersRouter = require('./routers/users.routes')
+const orderRoutes = require('./routers/orders.routes')
 
 //Middleware
 const app = express()
@@ -24,6 +25,7 @@ app.use(bodyParser.json())
 app.use('/api/auth', authRouter)
 app.use('/api/meals', mealsRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/orders', orderRoutes)
 
 
 app.listen(PORT, () =>{
