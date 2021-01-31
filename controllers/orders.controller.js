@@ -1,6 +1,7 @@
 const sequelize = require('../conexion')
 
 const createOrder = () =>{
+    const {id_user, id_meal, forma_pago, id_status} = req.body
 
 }
 
