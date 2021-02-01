@@ -10,7 +10,6 @@ const verifyToken = async (req, res, next)=>{
     try {
         const verify = jwt.verify(token, process.env.TOKEN_SECRET)
         req.user = verify
-        console.log('este es el verify ', verify);
         next()
     } catch (error) {
         res.status(400).json({error: 'token no válido'})
@@ -22,7 +21,7 @@ const isAdmin = async (req, res, next) =>{
     const verify = jwt.verify(token, process.env.TOKEN_SECRET)
         if (verify.id_role === 1) {
             next()
-            console.log(verify.nombre);
+            console.log(verify.nombre_user);
             return
         }
 

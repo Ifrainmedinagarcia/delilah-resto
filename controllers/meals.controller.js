@@ -1,15 +1,15 @@
 const sequelize = require('../conexion')
 
 const createMeals = async (req, res) =>{
-    const {nombre, precio, img} = req.body
+    const {nombre_meal, precio, img} = req.body
 
-    let arrayInsertAlbum = [`${nombre}`, `${precio}`, `${img}`]
+    let arrayInsertAlbum = [`${nombre_meal}`, `${precio}`, `${img}`]
 
     try {
-        const result = await sequelize.query('INSERT INTO meals (nombre, precio, img) VALUES( ?, ?, ?)',
+        const result = await sequelize.query('INSERT INTO meals (nombre_meal, precio, img) VALUES( ?, ?, ?)',
         {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
         res.status(201).json({
-            message: 'producto creado ',
+            message: 'plato creado ',
             result
         })
     } catch (error) {
@@ -20,10 +20,9 @@ const createMeals = async (req, res) =>{
 const getMeals = async (req, res) =>{
     try {
         const result = await sequelize.query('SELECT * FROM meals', {type: sequelize.QueryTypes.SELECT})
-        console.log(result)
         res.status(200).json({result})
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
+        console.log(`error en la búsqueda ${error}`)
     }
 }
 
@@ -32,27 +31,23 @@ const getMealsId = async (req, res) =>{
         const result = await sequelize.query(`SELECT * FROM meals 
         WHERE id_meal = ${req.params.mealsId}`, 
         {type: sequelize.QueryTypes.SELECT})
-
-        console.log(result)
         res.status(200).json({result})
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
-    }
-    
+        console.log(`error en la búsqueda ${error}`)
+    } 
 }
 
 const updateMealsById = async (req, res) =>{
-    const { nombre, precio, img } = req.body
+    const { nombre_meal, precio, img } = req.body
 
     try {
         const result = await sequelize.query(`UPDATE meals 
-        SET nombre = "${nombre}",  
+        SET nombre_meal = "${nombre_meal}",  
         precio = "${precio}", img = "${img}"  
         WHERE id_meal = ${req.params.mealsId}`,
         { type: sequelize.QueryTypes.INSERT })
-        console.log(result);
         res.status(204).json({
-            message: 'album actulizado',
+            message: 'Plato actulizado',
             result
     })
 
@@ -65,11 +60,11 @@ const deleteMealsById = async (req, res) =>{
     try {
         const result = await sequelize.query(`DELETE FROM meals WHERE id_meal = ${req.params.mealsId}`)
         res.status(204).json({
-            message: 'album eliminado',
+            message: 'Plato eliminado',
             result
         })
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
+        console.log(`error en la eliminación ${error}`)
     }
 }
 

@@ -30,7 +30,7 @@ const singIn = async (req, res) =>{
 
                 if (response) {
                     const token = jwt.sign({
-                        nombre: user.nombre,
+                        nombre: user.nombre_user,
                         id_user: user.id_user,
                         id_role: user.id_role
                     }, process.env.TOKEN_SECRET, {
@@ -38,7 +38,7 @@ const singIn = async (req, res) =>{
                     })
                     res.header('Authorization', token).json({
                         error: null,
-                        data: `Bienvenido ${user.nombre}`,
+                        data: `Bienvenido ${user.nombre_user}`,
                         token
                     })
                 }else{
@@ -55,7 +55,7 @@ const singIn = async (req, res) =>{
 }
 
 const singUp = async (req, res) =>{
-    const {nombre, email, phone, address, contrasena, id_role} = req.body
+    const {nombre_user, email, phone, address, contrasena, id_role} = req.body
 
         const { error } = validateRegister.validate(req.body)
         if (error) {
@@ -68,11 +68,11 @@ const singUp = async (req, res) =>{
         const salt = await bcrypt.genSalt(10)
         const passwordHash = await bcrypt.hash(contrasena, salt)
        
-        let arrayInsertAlbum = [`${nombre}`, `${email}`, `${phone}`, `${address}`, `${passwordHash}`, `${id_role}`]
+        let arrayInsertUser = [`${nombre_user}`, `${email}`, `${phone}`, `${address}`, `${passwordHash}`, `${id_role}`]
        
         try {
-            const result = await sequelize.query('INSERT INTO users (nombre, email, phone, address, contrasena, id_role) VALUES( ?, ?, ?, ?, ?, ?)',
-            {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
+            const result = await sequelize.query('INSERT INTO users (nombre_user, email, phone, address, contrasena, id_role) VALUES( ?, ?, ?, ?, ?, ?)',
+            {replacements: arrayInsertUser , type: sequelize.QueryTypes.INSERT })
             res.status(201).json({result})
 
             
