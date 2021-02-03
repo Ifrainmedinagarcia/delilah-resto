@@ -23,7 +23,7 @@ const singIn = async (req, res) =>{
             return res.status(400).json({error: 'Usuario y/o contraseña inválida'})
             }
 
-            const validPassword = await bcrypt.compare(req.body.contrasena, user.contrasena, function(err, response) {
+            const validPassword = await bcrypt.compare(req.body.contrasena, user.contrasena, (err, response) =>{
                 if(err){
                     return response.status(400)
                 }
@@ -77,11 +77,19 @@ const singUp = async (req, res) =>{
 
             
         }catch (error) {
-            console.log(`error en la inserción ${error}`)
-            res.status(400).json({
-                error,
-                message : 'Usuario ya existe'
-            })
+            if (error.name === 'SequelizeUniqueConstraintError') {
+                res.status(400).json({
+                    error,
+                    message : 'Usuario ya existe'
+                })
+            } else {
+                console.log(`error en la inserción ${error}`)
+                res.status(500).json({
+                    error,
+                    message : 'Error inesperado'
+                })
+                
+            }
         }
 }
 

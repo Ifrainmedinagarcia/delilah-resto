@@ -3,31 +3,51 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const createOrder = async (req, res) =>{
-    const {id_user, id_meal, forma_pago, id_status} = req.body
+    const {id_user, id_meal, id_forma_pago, id_status} = req.body
 
-    let arrayInsertAlbum = [`${id_user}`, `${id_meal}`, `${forma_pago}`, `${id_status}`]
+    let arrayInsertAlbum = [`${id_user}`, `${id_meal}`, `${id_forma_pago}`, `${id_status}`]
 
     try {
-        const result = await sequelize.query('INSERT INTO orders (id_user, id_meal, forma_pago, id_status) VALUES( ?, ?, ?, ?)',
+        const result = await sequelize.query('INSERT INTO orders (id_user, id_meal, id_forma_pago, id_status) VALUES( ?, ?, ?, ?)',
         {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
         res.status(201).json({
             message: 'orden creada ',
             result
         })
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
+        if (error.name) {
+            console.log(`error en la inserción ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
+       
     }
 }
 
 const getOrders = async (req, res) =>{
     try {
-        const result = await sequelize.query(`SELECT id_order, hora, m.nombre_meal, forma_pago, u.nombre_user, u.address, u.email, s.nombre_status 
+        const result = await sequelize.query(`SELECT id_order, hora, m.nombre_meal, fp.nombre_forma_pago, u.nombre_user, u.address, u.email, s.nombre_status 
         FROM orders left join users u using(id_user)
         left join meals m using(id_meal)
-        left join status s using(id_status)`, {type: sequelize.QueryTypes.SELECT})
+        left join status s using(id_status)
+        left join forma_pago fp using(id_forma_pago)`, {type: sequelize.QueryTypes.SELECT})
         res.status(200).json({result}) 
     } catch (error) {
-        console.log(`error en la búsqueda ${error}`)
+        if (error.name) {
+            console.log(`error en la búsqueda ${error}`)
+            res.status(404).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
@@ -36,15 +56,24 @@ const getOrderUsers = async (req, res) =>{
     const verify = jwt.verify(token, process.env.TOKEN_SECRET)
     console.log(verify);
     try {
-        const result = await sequelize.query(`SELECT id_order, hora, m.nombre_meal, forma_pago, u.nombre_user, u.address, u.email, s.nombre_status 
-        FROM orders 
-        left join users u using(id_user)
+        const result = await sequelize.query(`SELECT id_order, hora, m.nombre_meal, fp.nombre_forma_pago, u.nombre_user, u.address, u.email, s.nombre_status 
+        FROM orders left join users u using(id_user)
         left join meals m using(id_meal)
-        left join status s using(id_status) WHERE id_user = ${verify.id_user}`, 
+        left join status s using(id_status)
+        left join forma_pago fp using(id_forma_pago) WHERE id_user = ${verify.id_user}`, 
         {type: sequelize.QueryTypes.SELECT})
         res.status(200).json({result})
     } catch (error) {
-        console.log(`error en la búsqueda ${error}`)
+        if (error.name) {
+            console.log(`error en la búsqueda ${error}`)
+            res.status(404).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     } 
 }
 
@@ -61,7 +90,16 @@ const updateOrder = async (req, res) =>{
     })
 
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
+        if (error.name) {
+            console.log(`error en la actualización ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
@@ -73,7 +111,16 @@ const deleteOrder = async (req, res) =>{
             result
         })
     } catch (error) {
-        console.log(`error en la eliminación ${error}`)
+        if (error.name) {
+            console.log(`error en la eliminación ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 

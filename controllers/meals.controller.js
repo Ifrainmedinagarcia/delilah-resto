@@ -13,7 +13,16 @@ const createMeals = async (req, res) =>{
             result
         })
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
+        if (error.name) {
+            console.log(`error en la creación ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
@@ -22,7 +31,16 @@ const getMeals = async (req, res) =>{
         const result = await sequelize.query('SELECT * FROM meals', {type: sequelize.QueryTypes.SELECT})
         res.status(200).json({result})
     } catch (error) {
-        console.log(`error en la búsqueda ${error}`)
+        if (error.name) {
+            console.log(`error en la búsqueda ${error}`)
+            res.status(404).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
@@ -33,7 +51,16 @@ const getMealsId = async (req, res) =>{
         {type: sequelize.QueryTypes.SELECT})
         res.status(200).json({result})
     } catch (error) {
-        console.log(`error en la búsqueda ${error}`)
+        if (error.name) {
+            console.log(`error en la búsqueda ${error}`)
+            res.status(404).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     } 
 }
 
@@ -52,7 +79,16 @@ const updateMealsById = async (req, res) =>{
     })
 
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
+        if (error.name) {
+            console.log(`error en la actualización ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
@@ -64,7 +100,16 @@ const deleteMealsById = async (req, res) =>{
             result
         })
     } catch (error) {
-        console.log(`error en la eliminación ${error}`)
+        if (error.name) {
+            console.log(`error en la eliminación ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 

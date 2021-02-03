@@ -1,5 +1,6 @@
 const sequelize = require('../conexion')
-const bcrypt =require('bcrypt')
+const bcrypt = require('bcrypt')
+const validateRegister = require('../libs/validateInputs.libs').schemaRegister
 
 const createUser = async (req, res) =>{
 
@@ -24,14 +25,20 @@ const createUser = async (req, res) =>{
         res.status(201).json({result})
 
     }catch (error) {
-        console.log(`error en la inserción ${error}`)
-        res.status(400).json({
-            error,
-            message : 'Usuario ya existe'
-        })
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            res.status(400).json({
+                error,
+                message : 'Usuario ya existe'
+            })
+        } else {
+            console.log(`error en la inserción ${error}`)
+            res.status(500).json({
+                error,
+                message : 'Error inesperado'
+            })
+            
+        }
     }
-
-    //TODO: SequelizeUniqueConstraintError: Validation error   
 
 }
 
@@ -40,7 +47,16 @@ const getUsers = async (req, res) =>{
         const result = await sequelize.query('SELECT * FROM users', {type: sequelize.QueryTypes.SELECT})
         res.status(200).json({result})
     } catch (error) {
-        console.log(`error en la búsqueda ${error}`)
+        if (error.name) {
+            console.log(`error en la búsqueda ${error}`)
+            res.status(404).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
@@ -51,7 +67,16 @@ const getUsersById = async (req, res) =>{
         {type: sequelize.QueryTypes.SELECT})
         res.status(200).json({result})
     } catch (error) {
-        console.log(`error en la búsqueda ${error}`)
+        if (error.name) {
+            console.log(`error en la búsqueda ${error}`)
+            res.status(404).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
     
 }
@@ -69,7 +94,16 @@ const updateUsersById = async (req, res) =>{
     })
 
     } catch (error) {
-        console.log(`error en la inserción ${error}`)
+        if (error.name) {
+            console.log(`error en la actualización ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
@@ -81,7 +115,16 @@ const deleteUserById = async (req, res) =>{
             result
         })
     } catch (error) {
-        console.log(`error en eliminación ${error}`)
+        if (error.name) {
+            console.log(`error en la eliminación ${error}`)
+            res.status(400).json({
+                error
+            })
+        } else {
+            res.status(500).json({
+                error
+            })
+        }
     }
 }
 
