@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const path = 'mysql://root:@localhost:3306/delilah'
+const path = 'mysql://root:@localhost:3306/delilah' // .env
 
 const sequelize = new Sequelize(path, {
     dialect: 'mysql',

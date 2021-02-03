@@ -17,7 +17,8 @@ app.use(helmet())
 app.use(cors())
 
 // capture body
-app.use(bodyParser.urlencoded({ extended: false }))
+// cambiar bode-parser por express.bodyparser 
+app.use(bodyParser.urlencoded({ extended: false })) //revisar
 app.use(bodyParser.json())
 
 

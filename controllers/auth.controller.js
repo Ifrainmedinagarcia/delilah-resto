@@ -83,8 +83,6 @@ const singUp = async (req, res) =>{
                 message : 'Usuario ya existe'
             })
         }
-
-        //TODO: SequelizeUniqueConstraintError: Validation error   
 }
 
 exports.singIn = singIn
