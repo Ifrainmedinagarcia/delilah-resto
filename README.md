@@ -12,33 +12,30 @@ Crear el backend para un sistema de pedidos online para un restaurante.
 ----------------------------------------------------------------------------------------------------------
 
 #Acciones Admin:
-.Platos:
-    - Obtener Platos
-    - Agregar Platos
-    - Eliminar Platos
-    - Actualizar Platos
-.Órdenes:
-    - Obtener todas las Órdenes
-    - Eliminar Órdenes
-    - Actualizar status de las Órdenes
-    - Crear Órdenes
-.Usuarios:
-    - Actualizar role de Usuarios
-    - Agregar un nuevo Usuario
-    - Eliminar Usuarios
-    - Obtener todos los Usuarios
+- Obtener Platos
+- Agregar Platos
+- Eliminar Platos
+- Actualizar Platos
+- Obtener todas las Órdenes
+- Eliminar Órdenes
+- Actualizar status de las Órdenes
+- Crear Órdenes
+- Actualizar role de Usuarios
+- Agregar un nuevo Usuario
+- Eliminar Usuarios
+- Obtener todos los Usuarios
 ----------------------------------------------------------------------------------------------------------
 
 1. Clonar el proyecto desde tu consola
 
-copia y pega esta línea de comando
+copia y pega esta línea de comando:
 
 git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
 ----------------------------------------------------------------------------------------------------------
 
 2. Instalar dependecias
 
-copia y pega esta línea de comando
+copia y pega esta línea de comando:
 
 npm i
 ----------------------------------------------------------------------------------------------------------
