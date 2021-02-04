@@ -96,18 +96,18 @@ npm start
 
 | Metodo  | Enpoint                | Body                                                     | Header  | Descripcion                   |
 |---------|------------------------|----------------------------------------------------------|---------|-------------------------------|
+| USERS   |                        |                                                          |         |                               |
 | POST    | api/auth/register      |{email, contrasena}                                       |         | Registra un usuario nuevo     |
 | POST    | api/auth/login         |{nombre_user, email, phone, address, contrasena, id_role} |         | Inicio de sesión del usuario  |
+|         |                        |                                                          |         |                               |
+| PLATOS  |                        |                                                          |         |                               |
 | POST    | api/meals              |{nombre_meal, precio, img}                                | {TOKEN} | Crea un plato (Admin)         |
 | GET     | api/meals              |                                                          |         | Devuelve todos los platos     |
-| GET     | api/products/:mealsId  |                                                          |         | Devuelve un plato según su ID |
-| PUT     | api/products/:mealsId  |{nombre_meal, precio, img}                                | {TOKEN} | Actualiza un plato (Admin)    |
-| DELETE  | api/products/:mealsId  |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina un plato (Admin)      |
+| GET     | api/meals/:mealsId     |                                                          |         | Devuelve un plato según su ID |
+| PUT     | api/meals/:mealsId     |{nombre_meal, precio, img}                                | {TOKEN} | Actualiza un plato (Admin)    |
+| DELETE  | api/meals/:mealsId     |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina un plato (Admin)      |
 |         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
+| ORDERS  |                        |                                                          |         |                               |
 |         |                        |                                                          |         |                               |
 |         |                        |                                                          |         |                               |
 |         |                        |                                                          |         |                               |
