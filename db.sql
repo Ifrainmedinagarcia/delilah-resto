@@ -28,7 +28,7 @@ CREATE table orders (
 	id_user int,
 	id_meal int,
 	hora timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	forma_pago int,
+	id_forma_pago int,
 	id_status int
 );
 
@@ -74,5 +74,11 @@ INSERT into status(nombre_status) values ('Entregado');
 INSERT into users_roles (nombre_role) values ('admin');
 
 INSERT into users_roles (nombre_role) values ('user');
+
+-- Ingresar contenido a la tabla forma_pago
+
+INSERT INTO forma_pago (nombre_forma_pago) values ('Efectivo');
+INSERT INTO forma_pago (nombre_forma_pago) values ('Tarjeta de débito');
+INSERT INTO forma_pago (nombre_forma_pago) values ('Tarjeta de crédito');
 
 --Listo la base de datos ya estaría configurada
