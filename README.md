@@ -116,23 +116,9 @@ npm start
 |         |                        |                                                          |         |                                    |
 | ORDERS  |                        |                                                          |         |                                    |
 |         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-|         |                        |                                                          |         |                                    |
-
-
+| POST    | api/orders             |{id_user, id_meal, id_forma_pago, id_status}              | {TOKEN} | Crea una nueva orden               |
+| GET     | api/orders             |                                                          | {TOKEN} | Obtiene todas las órdenes (Admin)  |
+| GET     | api/orders/user        |                                                          | {TOKEN} | Obtiene las órdener del usuario    |
+| PUT     | api/orders/:orderId    |{orderId} (por parámetro)                                 | {TOKEN} | Actualiza status orden (Admin)     |
+| DELETE  | api/orders/:orderId    |{orderId} (por parámetro)                                 | {TOKEN} | Elimina la orden (Admin)           |
 
