@@ -73,13 +73,14 @@ del usuario para hacer operaciones).
 5. Inicia el servidor
 
 Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de código(en la consola) y estando en la carpeta delilah-resto puedes introducir cualquiera de estos comandos:
-    - node app.js
-    - nodemon app.js
-    - npm start
+   
+node app.js
+nodemon app.js
+npm start
 
 ----------------------------------------------------------------------------------------------------------
 
-6.Puedes ir a swagger copiar y pegar el contenido del archivo YAML para entender mejor el funcionamiento de la API
+6. Puedes ir a swagger copiar y pegar el contenido del archivo YAML para entender mejor el funcionamiento de la API
 
 ----------------------------------------------------------------------------------------------------------
 
