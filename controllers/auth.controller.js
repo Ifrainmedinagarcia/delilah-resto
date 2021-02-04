@@ -16,7 +16,7 @@ const singIn = async (req, res) =>{
             let user = await sequelize.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, 
             {type: sequelize.QueryTypes.SELECT})
 
-            console.log(user)
+      
             user = user[0]
 
             if (!user) {
@@ -51,7 +51,7 @@ const singIn = async (req, res) =>{
             error,
             message : 'Error inesperado'
         })
-        console.log(error);
+
     }
 }
 

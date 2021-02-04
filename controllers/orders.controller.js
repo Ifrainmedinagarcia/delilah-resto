@@ -56,7 +56,6 @@ const getOrders = async (req, res) =>{
 const getOrderUsers = async (req, res) =>{
     const token = req.header('Authorization')
     const verify = jwt.verify(token, process.env.TOKEN_SECRET)
-    console.log(verify);
     try {
         const result = await sequelize.query(`SELECT id_order, hora, m.nombre_meal, fp.nombre_forma_pago, u.nombre_user, u.address, u.email, s.nombre_status 
         FROM orders left join users u using(id_user)

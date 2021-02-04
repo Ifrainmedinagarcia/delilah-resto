@@ -14,7 +14,6 @@ const createMeals = async (req, res) =>{
         })
     } catch (error) {
         if (error.name) {
-            console.log(`error en la creación ${error}`)
             res.status(400).json({
                 error,
                 message : 'error en la creación'
@@ -34,7 +33,6 @@ const getMeals = async (req, res) =>{
         res.status(200).json({result})
     } catch (error) {
         if (error.name) {
-            console.log(`error en la búsqueda ${error}`)
             res.status(404).json({
                 error,
                 message: 'error en la búsqueda'

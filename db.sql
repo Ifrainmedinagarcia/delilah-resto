@@ -28,7 +28,7 @@ CREATE table orders (
 	id_user int,
 	id_meal int,
 	hora timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	forma_pago varchar(255),
+	forma_pago int,
 	id_status int
 );
 
@@ -42,6 +42,12 @@ create table users_roles(
 	nombre_role varchar(255)
 );
 
+CREATE table forma_pago (
+	id_forma_pago int not null primary key auto_increment,
+	nombre_forma_pago varchar(255)
+);
+
+
 -- Crear FOREIGN KEY
 ALTER table users add CONSTRAINT users_fk_1 FOREIGN KEY (id_role) REFERENCES users_roles (id_role);
 
@@ -50,6 +56,8 @@ ALTER table orders add CONSTRAINT orders_fk_1 FOREIGN KEY (id_user) REFERENCES u
 ALTER table orders add CONSTRAINT orders_fk_2 FOREIGN KEY (id_meal) REFERENCES meals (id_meal);
 
 ALTER table orders add CONSTRAINT orders_fk_3 FOREIGN KEY (id_status) REFERENCES status (id_status);
+
+ALTER table orders add CONSTRAINT orders_fk_4 FOREIGN KEY (id_forma_pago) REFERENCES forma_pago (id_forma_pago);
 
 -- Ingresar contenido a la tabla status
 INSERT into status(nombre_status) values ('Nuevo');
