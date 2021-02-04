@@ -94,25 +94,45 @@ npm start
 
 #API Desing:
 
-| Metodo  | Enpoint                | Body                                                     | Header  | Descripcion                   |
-|---------|------------------------|----------------------------------------------------------|---------|-------------------------------|
-| USERS   |                        |                                                          |         |                               |
-| POST    | api/auth/register      |{email, contrasena}                                       |         | Registra un usuario nuevo     |
-| POST    | api/auth/login         |{nombre_user, email, phone, address, contrasena, id_role} |         | Inicio de sesión del usuario  |
-|         |                        |                                                          |         |                               |
-| PLATOS  |                        |                                                          |         |                               |
-| POST    | api/meals              |{nombre_meal, precio, img}                                | {TOKEN} | Crea un plato (Admin)         |
-| GET     | api/meals              |                                                          |         | Devuelve todos los platos     |
-| GET     | api/meals/:mealsId     |                                                          |         | Devuelve un plato según su ID |
-| PUT     | api/meals/:mealsId     |{nombre_meal, precio, img}                                | {TOKEN} | Actualiza un plato (Admin)    |
-| DELETE  | api/meals/:mealsId     |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina un plato (Admin)      |
-|         |                        |                                                          |         |                               |
-| ORDERS  |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
-|         |                        |                                                          |         |                               |
+| Metodo  | Enpoint                | Body                                                     | Header  | Descripcion                        |
+|---------|------------------------|----------------------------------------------------------|---------|------------------------------------|
+| USERS   |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+| POST    | api/auth/register      |{email, contrasena}                                       |         | Registra un usuario nuevo          |
+| POST    | api/auth/login         |{nombre_user, email, phone, address, contrasena, id_role} |         | Inicio de sesión del usuario       |
+| GET     | api/users              |                                                          | {TOKEN} | Obtiene todos los usuarios (Admin) |
+| POST    | api/users              |{nombre_user, email, phone, address, contrasena, id_role} | {TOKEN} | Crear un nuevo usuario (Admin)     |
+| GET     | api/users/:userId      |                                                          | {TOKEN} | Obtiene usuario por su ID (Admin)  |
+| PUT     | api/users/:userId      |{id_role}                                                 | {TOKEN} | Actualiza rol del usuario (Admin)  |
+| DELETE  | api/users/:userId      |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina Usuario (Admin)            |
+|         |                        |                                                          |         |                                    |
+| MEALS   |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+| POST    | api/meals              |{nombre_meal, precio, img}                                | {TOKEN} | Crea un plato (Admin)              |
+| GET     | api/meals              |                                                          |         | Devuelve todos los platos          |
+| GET     | api/meals/:mealsId     |                                                          |         | Devuelve un plato según su ID      |
+| PUT     | api/meals/:mealsId     |{nombre_meal, precio, img}                                | {TOKEN} | Actualiza un plato (Admin)         |
+| DELETE  | api/meals/:mealsId     |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina un plato (Admin)           |
+|         |                        |                                                          |         |                                    |
+| ORDERS  |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
+|         |                        |                                                          |         |                                    |
 
 
 
