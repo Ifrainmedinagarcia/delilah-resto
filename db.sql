@@ -78,7 +78,9 @@ INSERT into users_roles (nombre_role) values ('user');
 -- Ingresar contenido a la tabla forma_pago
 
 INSERT INTO forma_pago (nombre_forma_pago) values ('Efectivo');
+
 INSERT INTO forma_pago (nombre_forma_pago) values ('Tarjeta de débito');
+
 INSERT INTO forma_pago (nombre_forma_pago) values ('Tarjeta de crédito');
 
 --Listo la base de datos ya estaría configurada

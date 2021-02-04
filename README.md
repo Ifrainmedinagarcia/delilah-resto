@@ -36,7 +36,7 @@ git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
 
 ----------------------------------------------------------------------------------------------------------
 
-2. Instalar dependecias 🔧
+2. Instalar dependencia 🔧
 
 copia y pega esta línea de comando:
 
