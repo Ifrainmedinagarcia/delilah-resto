@@ -30,7 +30,7 @@ Crear el backend para un sistema de pedidos online para un restaurante.
 
 copia y pega esta línea de comando:
 
-git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
+- git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
 
 ----------------------------------------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
 
 copia y pega esta línea de comando:
 
-npm i
+- npm i
 
 ----------------------------------------------------------------------------------------------------------
 
