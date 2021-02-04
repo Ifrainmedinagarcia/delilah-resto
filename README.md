@@ -77,7 +77,7 @@ Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de c
     - npm start
 ----------------------------------------------------------------------------------------------------------
 
-6.Puedes ir a swagger copiar y pegar el contenido del archivo YAML para entender mejor el funcionamiento de la API
+6. Puedes ir a swagger copiar y pegar el contenido del archivo YAML para entender mejor el funcionamiento de la API
 ----------------------------------------------------------------------------------------------------------
 
 7. EDPOINT
