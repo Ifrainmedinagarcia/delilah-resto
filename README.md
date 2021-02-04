@@ -94,32 +94,25 @@ npm start
 
 #API Desing:
 
-| Metodo  | Enpoint          | Body                                                     |   |   |
-|---------|------------------|----------------------------------------------------------|---|---|
-| POST    | api/auth/register|{ email, contrasena}                                      |   |   |
-| POST    | api/auth/login   |{nombre_user, email, phone, address, contrasena, id_role} |   |   |
-|         |                  |                                                          |   |   |
-
-
-
-
-- Registrarnos: POST api/auth/register
-
-- Identificarnos: POST api/auth/login
-
-- Obtener platos: GET api/meals
-
-- Obtener plato por ID: GET api/meals/:mealsId
-
-- Crear plato: POST api/meals
-
-- Actualizar plato: PUT api/meals/:mealsId
-
-- Eliminar plato : DELETE api/meals/:mealsId
-
-- Eliminar Productos: DELETE apis/products/:productId
-
-- Actualizar Productos: PUT api/products/:productId
+| Metodo  | Enpoint          | Body                                                     | Header  | Descripcion                   |
+|---------|------------------|----------------------------------------------------------|---------|-------------------------------|
+| POST    | api/auth/register|{ email, contrasena}                                      |         | Encripta la contraseña        |
+| POST    | api/auth/login   |{nombre_user, email, phone, address, contrasena, id_role} |         | Devuelve el Token del Usuario |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
+|         |                  |                                                          |         |                               |
 
 
 
