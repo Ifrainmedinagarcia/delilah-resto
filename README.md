@@ -61,7 +61,7 @@ Debes crear un archivo .env para guardar las variables de entornos:
 
 Debe estar escrito tal cual como se muestra en este documento.
 
-- TOKEN_SECRET (es el token que se necesita para generar y decoficar 
+- TOKEN_SECRET (es el token que se necesita para generar y decodificar 
 el token de cada usuario y así poder hacer las diferentes acciones, 
 recuerda que este token debe estar en una variable de entorno y el string debe estar oculto)
 
