@@ -23,10 +23,10 @@ app.use(bodyParser.json())
 
 
 // route middlewares
-app.use('/api/auth', authRouter)
-app.use('/api/meals', mealsRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/orders', orderRoutes)
+app.use('/v1/api/auth', authRouter)
+app.use('/v1/api/meals', mealsRouter)
+app.use('/v1/api/users', usersRouter)
+app.use('/v1/api/orders', orderRoutes)
 
 
 app.listen(PORT, () =>{

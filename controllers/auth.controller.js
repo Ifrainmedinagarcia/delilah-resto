@@ -36,7 +36,7 @@ const singIn = async (req, res) =>{
                     }, process.env.TOKEN_SECRET, {
                         expiresIn: process.env.EXPIRES
                     })
-                    res.header('Authorization', token).json({
+                    res.status(200).header('Authorization', token).json({
                         error: null,
                         data: `Bienvenido ${user.nombre_user}`,
                         token
@@ -47,8 +47,9 @@ const singIn = async (req, res) =>{
             })
 
     } catch (error) {
-        res.status(400).json({
-            error
+        res.status(500).json({
+            error,
+            message : 'Error inesperado'
         })
         console.log(error);
     }
@@ -73,7 +74,10 @@ const singUp = async (req, res) =>{
         try {
             const result = await sequelize.query('INSERT INTO users (nombre_user, email, phone, address, contrasena, id_role) VALUES( ?, ?, ?, ?, ?, ?)',
             {replacements: arrayInsertUser , type: sequelize.QueryTypes.INSERT })
-            res.status(201).json({result})
+            res.status(201).json({
+                message : 'Usuario Creado',
+                result
+            })
 
             
         }catch (error) {
@@ -83,7 +87,6 @@ const singUp = async (req, res) =>{
                     message : 'Usuario ya existe'
                 })
             } else {
-                console.log(`error en la inserción ${error}`)
                 res.status(500).json({
                     error,
                     message : 'Error inesperado'

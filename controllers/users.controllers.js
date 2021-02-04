@@ -17,11 +17,11 @@ const createUser = async (req, res) =>{
     const salt = await bcrypt.genSalt(10)
     const passwordHash = await bcrypt.hash(contrasena, salt)
    
-    let arrayInsertAlbum = [`${nombre_user}`, `${email}`, `${phone}`, `${address}`, `${passwordHash}`, `${id_role}`]
+    let arrayInsertUser = [`${nombre_user}`, `${email}`, `${phone}`, `${address}`, `${passwordHash}`, `${id_role}`]
    
     try {
         const result = await sequelize.query('INSERT INTO users (nombre_user, email, phone, address, contrasena, id_role) VALUES( ?, ?, ?, ?, ?, ?)',
-        {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
+        {replacements: arrayInsertUser , type: sequelize.QueryTypes.INSERT })
         res.status(201).json({result})
 
     }catch (error) {
@@ -50,11 +50,13 @@ const getUsers = async (req, res) =>{
         if (error.name) {
             console.log(`error en la búsqueda ${error}`)
             res.status(404).json({
-                error
+                error,
+                message: 'Usuarios no encontrados'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -70,11 +72,13 @@ const getUsersById = async (req, res) =>{
         if (error.name) {
             console.log(`error en la búsqueda ${error}`)
             res.status(404).json({
-                error
+                error,
+                message: 'Usuario no encontrado'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -95,13 +99,14 @@ const updateUsersById = async (req, res) =>{
 
     } catch (error) {
         if (error.name) {
-            console.log(`error en la actualización ${error}`)
             res.status(400).json({
-                error
+                error,
+                message: 'error en la actualización'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -118,11 +123,13 @@ const deleteUserById = async (req, res) =>{
         if (error.name) {
             console.log(`error en la eliminación ${error}`)
             res.status(400).json({
-                error
+                error,
+                message : 'error en la eliminación'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }

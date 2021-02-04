@@ -3,24 +3,26 @@ const sequelize = require('../conexion')
 const createMeals = async (req, res) =>{
     const {nombre_meal, precio, img} = req.body
 
-    let arrayInsertAlbum = [`${nombre_meal}`, `${precio}`, `${img}`]
+    let arrayInsertMeal = [`${nombre_meal}`, `${precio}`, `${img}`]
 
     try {
         const result = await sequelize.query('INSERT INTO meals (nombre_meal, precio, img) VALUES( ?, ?, ?)',
-        {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
+        {replacements: arrayInsertMeal , type: sequelize.QueryTypes.INSERT })
         res.status(201).json({
-            message: 'plato creado ',
+            message: 'plato creado',
             result
         })
     } catch (error) {
         if (error.name) {
             console.log(`error en la creación ${error}`)
             res.status(400).json({
-                error
+                error,
+                message : 'error en la creación'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -34,11 +36,13 @@ const getMeals = async (req, res) =>{
         if (error.name) {
             console.log(`error en la búsqueda ${error}`)
             res.status(404).json({
-                error
+                error,
+                message: 'error en la búsqueda'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -52,13 +56,14 @@ const getMealsId = async (req, res) =>{
         res.status(200).json({result})
     } catch (error) {
         if (error.name) {
-            console.log(`error en la búsqueda ${error}`)
             res.status(404).json({
-                error
+                error,
+                message: 'error en la búsqueda'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     } 
@@ -75,18 +80,19 @@ const updateMealsById = async (req, res) =>{
         { type: sequelize.QueryTypes.INSERT })
         res.status(204).json({
             message: 'Plato actulizado',
-            result
+            result,
     })
 
     } catch (error) {
         if (error.name) {
-            console.log(`error en la actualización ${error}`)
             res.status(400).json({
-                error
+                error,
+                message: 'error en la actualización'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -101,13 +107,14 @@ const deleteMealsById = async (req, res) =>{
         })
     } catch (error) {
         if (error.name) {
-            console.log(`error en la eliminación ${error}`)
             res.status(400).json({
-                error
+                error,
+                message: 'error en la eliminación'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }

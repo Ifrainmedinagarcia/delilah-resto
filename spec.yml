@@ -1,96 +1,104 @@
-swagger: "1.0"
+swagger: "2.0"
 info:
-  description: "sistema de pedidos online para un restaurante "
+  description: "sistema de pedidos online para un restaurante [http://localhost:3000/v1/api/]"
   version: "1.0.0"
   title: "Delilah Restó"
-  termsOfService: "http://ejemplo/tyc/"
+  termsOfService: "http://localhost:3000/v1/api/"
   contact:
-    email: "medina.ifrain@gmail.com"
+    email: "user@consorcios.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.consorcios.io"
-basePath: "/v2"
+host: "localhost:3000"
+basePath: "/v1/api"
 tags:
-- name: "edificio"
-  description: "Operaciones sobre los edificios"
+
+- name: "users"
+  description: "Operaciones CRUD users"
   externalDocs:
-    description: "Documentacion externa edificios"
-    url: "http://consorcios.com/edificios"
-- name: "propietario"
-  description: "Operaciones sobre los propietarios"
+    description: "Documentacion externa users"
+    url: "http://localhost:3000/v1/api/users"
+    
+- name: "meals"
+  description: "Operaciones CRUD meals"
   externalDocs:
-    description: "Documentacion externa de propietarios"
-    url: "http://consorcios.com/propietarios"
+    description: "Documentacion externa de meals"
+    url: "http://localhost:3000/v1/api/meals"
+    
+- name: "orders"
+  description: "Operaciones CRUD orders"
+  externalDocs:
+    description: "Documentacion externa de orders"
+    url: "http://localhost:3000/v1/api/orders"
 schemes:
-- "https"
 - "http"
+
 paths:
-  /propietario:
+  /register:
     post:
       tags:
-      - "propietario"
-      summary: "creo un nuevo propietario para un edificio"
+      - "users"
+      summary: "Crea un nuevo usuario"
       description: ""
-      operationId: "nuevoPropietario"
+      operationId: "Nuevo Usuario"
       consumes:
       - "application/json"
-      - "application/xml"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
         name: "body"
-        description: "Objeto propietario para asignar a un edificio"
+        description: "Objeto user para crear un usuario"
         required: true
         schema:
-          $ref: "#/definitions/Propietarios"
+          $ref: "#/definitions/usersRegister"
       responses:
-        "405":
-          description: "Invalid input"
-
-    put:
-      tags:
-      - "propietario"
-      summary: "Modifico los datos de un propietario"
-      description: ""
-      operationId: "modificoPropietario"
-      consumes:
-      - "application/json"
-      - "application/xml"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Objeto propietario para asignar a un edificio"
-        required: true
-        schema:
-          $ref: "#/definitions/Propietarios"
-      responses:
+        "201":
+           description: "Usuario Creado"
         "400":
-          description: "Elemento Invalido"
-        "404":
-          description: "propietario no encontrado"
-        "405":
-          description: "excepción"
-
-  /propietario/buscarEstado:
+          description: "Usuario ya existe"
+        "500":
+          description: "Error inesperado"
+          
+  /login:
+    post:
+      tags:
+      - "users"
+      summary: "Login de un usuario"
+      description: ""
+      operationId: "indentificar usuario"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto para iniciar sesión en la app"
+        required: true
+        schema:
+          $ref: "#/definitions/usersLogin"
+      responses:
+        "200":
+          description: 'Usuario verficado'
+        "400":
+          description: "Usuario y/o contraseña inválida"
+        "500":
+          description: "Error inesperado"
+          
+  /users:
     get:
       tags:
-      - "propietario"
-      summary: "Busco un propietario por su estado"
-      description: "Se pueden proporcionar múltiples valores de estado con cadenas separadas por comas"
-      operationId: "BuscarPropietarioPorEstado"
+      - "users"
+      summary: "Obtener todos los usuarios"
+      description: "Obtener todos los usuarios"
+      operationId: "Obtener todos los usuarios"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "status"
         in: "query"
-        description: "Valores de los estado que deben considerarse para el filtro"
+        description: ""
         required: true
         type: "array"
         items:
@@ -105,24 +113,61 @@ paths:
         "200":
           description: "Operacion Realizada"
           schema:
-            type: "array"
+            type: "object"
             items:
-              $ref: "#/definitions/Propietarios"
-        "400":
-          description: "Elemento Invalido"
-
-  /propietario/{propietarioId}:
-    get:
+              $ref: "#/definitions/users"
+        "404":
+          description: "Usuarios no encontrados"
+        "500":
+          description: "Error inesperado"
+    post:
       tags:
-      - "propietario"
-      summary: "Busco un propietario por Id"
-      description: "Retorno un propietario"
-      operationId: "obtenerPropietarioPorId"
+      - "users"
+      summary: "Crea un nuevo usuario"
+      description: ""
+      operationId: "NuevoUsuario"
+      consumes:
+      - "application/json"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "propietarioId"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Objeto user para crear un usuario"
+        required: true
+        schema:
+          $ref: "#/definitions/usersRegister"
+      responses:
+        "201":
+          description: "Usuario Creado"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/users"
+        "400":
+          description: "Usuario ya existe"
+        "500":
+          description: "Error inesperado"
+
+  /users/{userId}:
+    get:
+      tags:
+      - "users"
+      summary: "Busco un usuario por Id"
+      description: "Retorno un usuario"
+      operationId: "obtenerUsuarioPorId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "userId"
         in: "path"
         description: "Identifica el id del propietario"
         required: true
@@ -132,138 +177,458 @@ paths:
         "200":
           description: "Operacion Realizada"
           schema:
-            $ref: "#/definitions/Propietarios"
-        "400":
-          description: "Elemento Invalido"
+            $ref: "#/definitions/users"
         "404":
-          description: "Elemento no encontrado"
-    post:
+          description: "Usuarios no encontrados"
+        "500":
+          description: "Error inesperado"
+          
+    put:
       tags:
-      - "propietario"
-      summary: "Actualizo al propietario en el edificio"
+      - "users"
+      summary: "Modifico el rol del usuario"
       description: ""
-      operationId: "actualizaPropietario"
+      operationId: ""
       consumes:
-      - "application/x-www-form-urlencoded"
+      - "application/json"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "propietarioId"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "usersId"
         in: "path"
-        description: "Actualizar el propietario identificado"
+        description: ""
         required: true
         type: "integer"
         format: "int64"
+        schema:
+          $ref: "#/definitions/userStatus"
       responses:
-        "405":
-          description: "Elemento Invalido"
+        "204":
+          description: "user actulizado"
+        "400":
+          description: "error en la actualización"
+        "500":
+          description: "Error inesperado"
 
     delete:
       tags:
-      - "propietario"
-      summary: "Elimino un propietario"
+      - "users"
+      summary: "Elimino a un usuario"
       description: ""
-      operationId: "eliminarPropietario"
+      operationId: "eliminarUsuario"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "api_key"
+      - name: "Authorization"
         in: "header"
-        required: false
+        required: true
         type: "string"
-      - name: "propietarioId"
+      - name: "usersId"
         in: "path"
-        description: "Eliminar propietario identificado"
+        description: "Eliminar usuario identificado"
         required: true
         type: "integer"
         format: "int64"
       responses:
-        "400":
-          description: "Elemento id Invalido"
-        "404":
-          description: "Elemento Invalido"
-
-  
-  /edificio/habitantes:
-    get:
-      tags:
-      - "edificio"
-      summary: "Retorna todas los propietarios de un edificio"
-      description: "Retorna la cantidad"
-      operationId: "obtenerEdificio"
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        "200":
-          description: "Operacion Sactifactoria"
-          schema:
-            type: "object"
-            additionalProperties:
-              type: "integer"
-              format: "int32"
-  /edificio:
+        "204":
+          description: "user eliminado"
+        "500":
+          description: "Error inesperado"
+          
+  /meals:
     post:
       tags:
-      - "edificio"
-      summary: "crea un nuevo edificio"
-      description: "Nuevo edificio"
-      operationId: "NuevoEdificio"
+      - "meals"
+      summary: "Crea un nuevo plato"
+      description: ""
+      operationId: "NuevoPlato"
+      consumes:
+      - "application/json"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
       - in: "body"
         name: "body"
-        description: "Crea el objeto usurio"
+        description: "Objeto user para crear un nuevo plato"
         required: true
         schema:
-          $ref: "#/definitions/Edificios"
+          $ref: "#/definitions/meals"
       responses:
-        default:
-          description: "Operacion Sactifactoria"
-definitions:
-  Propietarios:
-    type: "object"
-    properties:
-      id:
+        "201":
+          description: "Plato creado"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/meals"
+        "400":
+          description: "error en la creación"
+        "500":
+          description: "Error inesperado"
+    get:
+      tags:
+      - "meals"
+      summary: "Obtener todos los platos"
+      description: ""
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "status"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "available"
+          - "pending"
+          - "sold"
+          default: "available"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "Operacion Realizada"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/meals"
+        "404":
+          description: "error en la búsqueda"
+        "500":
+          description: "Error inesperado"
+  
+  /meals/{mealsId}:
+    get:
+      tags:
+      - "users"
+      summary: "Busco un plato por Id"
+      description: ""
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mealsId"
+        in: "path"
+        description: "Identifica el id del propietario"
+        required: true
         type: "integer"
         format: "int64"
-      username:
+      responses:
+        "200":
+          description: "Operacion Realizada"
+          schema:
+            $ref: "#/definitions/meals"
+        "404":
+          description: "error en la búsqueda"
+        "500":
+          description: "Error inesperado"
+          
+    put:
+      tags:
+      - "meals"
+      summary: "Modifico el plato de comida"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
         type: "string"
-      name:
+      - name: "mealsId"
+        in: "path"
+        description: ""
+        required: true
+        type: "integer"
+        format: "int64"
+        schema:
+          $ref: "#/definitions/meals"
+      responses:
+        "204":
+          description: "plato actulizado"
+        "400":
+          description: "error en la actualización"
+        "500":
+          description: "Error inesperado"
+          
+    delete:
+      tags:
+      - "meals"
+      summary: "Elimina un plato"
+      description: ""
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "mealsId"
+        in: "path"
+        description: "Eliminar plato"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "204":
+          description: "plato eliminado"
+        "500":
+          description: "Error inesperado"
+          
+  /orders:
+    get:
+      tags:
+      - "orders"
+      summary: "Obtener todas las órdenes"
+      description: ""
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "orders"
+        in: "path"
+        description: ""
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Operacion Realizada"
+          schema:
+            $ref: "#/definitions/orders"
+        "404":
+          description: "Usuarios no encontrados"
+        "500":
+          description: "Error inesperado"
+          
+    post:
+      tags:
+      - "orders"
+      summary: "Crea una nueva orden"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Objeto para crea una nueva orden"
+        required: true
+        schema:
+          $ref: "#/definitions/orders"
+      responses:
+        "201":
+          description: "Orden creada"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/orders"
+        "400":
+          description: "error en la creación"
+        "500":
+          description: "Error inesperado"
+  
+  /orders/{orderId}:
+    put:
+      tags:
+      - "orders"
+      summary: "Modifico el plato de comida"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "orderId"
+        in: "path"
+        description: ""
+        required: true
+        type: "integer"
+        format: "int64"
+        schema:
+          $ref: "#/definitions/orderStatus"
+      responses:
+        "204":
+          description: "orden actulizado"
+        "400":
+          description: "error en la actualización"
+        "500":
+          description: "Error inesperado"
+    delete:
+      tags:
+      - "orders"
+      summary: "Elimina una orden"
+      description: ""
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "mealsId"
+        in: "path"
+        description: "Eliminar orden"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "204":
+          description: "orden eliminada"
+        "500":
+          description: "Error inesperado"
+          
+  /orders/user:
+    get:
+      tags:
+      - "orders"
+      summary: "Obtener todas las órdenes de un usuario"
+      description: ""
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "orders"
+        in: "path"
+        description: ""
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Operacion Realizada"
+          schema:
+            $ref: "#/definitions/orders"
+        "404":
+          description: "orden no encontrados"
+        "500":
+          description: "Error inesperado"
+  
+definitions:
+  usersRegister:
+    type: "object"
+    properties:
+      id_user:
+        type: "integer"
+        format: "int64"
+      nombre_user:
         type: "string"
       email:
         type: "string"
-      password:
+      contrasena:
         type: "string"
       phone:
         type: "string"
-      userStatus:
+      address:
+        type: "string"
+      id_role:
         type: "integer"
         format: "int32"
-        description: "User Status"
-    xml:
-      name: "Propietarios"
-  Edificios:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        nombre:
-          type: string
-        derecion:
-          type: string
-        telefono:
-          type: string
-        active:
-          type: boolean
-          default: true
-      xml:
-        name: Edificios
+      
+  usersLogin:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      contrasena:
+        type: "string"
+      
+  users:
+    type: "object"
+    properties:
+      id_user:
+        type: "integer"
+        format: "int64"
+      nombre_user:
+        type: "string"
+      email:
+        type: "string"
+      contrasena:
+        type: "string"
+      phone:
+        type: "string"
+      address:
+        type: "string"
+      id_role:
+        type: "integer"
+        format: "int32"
+        
+  userStatus:
+    type: "object"
+    properties:
+       id_role:
+          type: "integer"
+          format: "int32"
+          
+  meals:
+    type: 'object'
+    properties:
+      nombre_meal:
+        type: 'string'
+      precio: 
+        type: "integer"
+        format: "int32"
+      img:
+        type: 'string'
+        
+  orders:
+    type: 'object'
+    properties:
+      id_user:
+        type: "integer"
+        format: "int32"
+      id_meal:
+        type: "integer"
+        format: "int32"
+      id_forma_pago:
+        type: "integer"
+        format: "int32"
+      id_status:
+        type: "integer"
+        format: "int32"
+        
+  orderStatus:
+    type: "object"
+    properties:
+       id_status:
+          type: "integer"
+          format: "int32"
+      
+
+        
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"

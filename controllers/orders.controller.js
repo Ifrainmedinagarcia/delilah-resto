@@ -5,24 +5,25 @@ require('dotenv').config()
 const createOrder = async (req, res) =>{
     const {id_user, id_meal, id_forma_pago, id_status} = req.body
 
-    let arrayInsertAlbum = [`${id_user}`, `${id_meal}`, `${id_forma_pago}`, `${id_status}`]
+    let arrayInsertOrder = [`${id_user}`, `${id_meal}`, `${id_forma_pago}`, `${id_status}`]
 
     try {
         const result = await sequelize.query('INSERT INTO orders (id_user, id_meal, id_forma_pago, id_status) VALUES( ?, ?, ?, ?)',
-        {replacements: arrayInsertAlbum , type: sequelize.QueryTypes.INSERT })
+        {replacements: arrayInsertOrder , type: sequelize.QueryTypes.INSERT })
         res.status(201).json({
             message: 'orden creada ',
             result
         })
     } catch (error) {
         if (error.name) {
-            console.log(`error en la inserción ${error}`)
             res.status(400).json({
-                error
+                error,
+                message: 'error en la creación del usuario'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
        
@@ -39,13 +40,14 @@ const getOrders = async (req, res) =>{
         res.status(200).json({result}) 
     } catch (error) {
         if (error.name) {
-            console.log(`error en la búsqueda ${error}`)
             res.status(404).json({
-                error
+                error,
+                message: 'error en la búsqueda'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -65,13 +67,14 @@ const getOrderUsers = async (req, res) =>{
         res.status(200).json({result})
     } catch (error) {
         if (error.name) {
-            console.log(`error en la búsqueda ${error}`)
             res.status(404).json({
-                error
+                error,
+                message: 'error en la búsqueda'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     } 
@@ -91,13 +94,14 @@ const updateOrder = async (req, res) =>{
 
     } catch (error) {
         if (error.name) {
-            console.log(`error en la actualización ${error}`)
             res.status(400).json({
-                error
+                error,
+                message : 'error en la actualización'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
@@ -112,13 +116,14 @@ const deleteOrder = async (req, res) =>{
         })
     } catch (error) {
         if (error.name) {
-            console.log(`error en la eliminación ${error}`)
             res.status(400).json({
-                error
+                error,
+                message : 'error en la eliminación'
             })
         } else {
             res.status(500).json({
-                error
+                error,
+                message : 'Error inesperado'
             })
         }
     }
