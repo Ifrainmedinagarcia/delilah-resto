@@ -4,25 +4,21 @@ DELILAH RESTÓ
 Crear el backend para un sistema de pedidos online para un restaurante.
 
 #Acciones User:
-- Registrarnos
-- Identificarnos
-- Crear Órdenes
-- Obtener solo sus Órdenes
--Obtener todo el catálogo de Platos disponibles
+    - Registrarnos
+    - Identificarnos
+    - Crear Órdenes
+    - Obtener solo sus Órdenes
+    -Obtener todo el catálogo de Platos disponibles
 ----------------------------------------------------------------------------------------------------------
 
 #Acciones Admin:
-.Platos:
     - Obtener Platos
     - Agregar Platos
     - Eliminar Platos
     - Actualizar Platos
-.Órdenes:
     - Obtener todas las Órdenes
     - Eliminar Órdenes
     - Actualizar status de las Órdenes
-    - Crear Órdenes
-.Usuarios:
     - Actualizar role de Usuarios
     - Agregar un nuevo Usuario
     - Eliminar Usuarios
