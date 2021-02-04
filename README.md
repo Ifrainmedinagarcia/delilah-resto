@@ -31,6 +31,7 @@ Crear el backend para un sistema de pedidos online para un restaurante.
 copia y pega esta línea de comando:
 
 git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
+
 ----------------------------------------------------------------------------------------------------------
 
 2. Instalar dependecias
@@ -38,6 +39,7 @@ git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
 copia y pega esta línea de comando:
 
 npm i
+
 ----------------------------------------------------------------------------------------------------------
 
 3. Crear Base de Datos
@@ -47,6 +49,7 @@ todas las instrucciones para la creación las tablas que debes
 crear para poder iniciar el servidor con la base de datos. 
 También se encuentran la creación de las FOREIGN KEY para 
 hacer la relación entre las tablas.
+
 ----------------------------------------------------------------------------------------------------------
 
 4. Crear archivo .env
@@ -64,6 +67,7 @@ recuerda que este token debe estar en una variable de entorno y el string debe e
 
 - EXPIRES (es el tiempo de validez que tendrá el token 
 del usuario para hacer operaciones).
+
 ----------------------------------------------------------------------------------------------------------
 
 5. Inicia el servidor
@@ -72,9 +76,11 @@ Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de c
     - node app.js
     - nodemon app.js
     - npm start
+
 ----------------------------------------------------------------------------------------------------------
 
 6.Puedes ir a swagger copiar y pegar el contenido del archivo YAML para entender mejor el funcionamiento de la API
+
 ----------------------------------------------------------------------------------------------------------
 
 7. EDPOINT
