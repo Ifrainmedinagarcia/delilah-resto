@@ -74,9 +74,9 @@ del usuario para hacer operaciones).
 
 Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de código(en la consola) y estando en la carpeta delilah-resto puedes introducir cualquiera de estos comandos:
    
-node app.js
-nodemon app.js
-npm start
+- node app.js
+- nodemon app.js
+- npm start
 
 ----------------------------------------------------------------------------------------------------------
 
