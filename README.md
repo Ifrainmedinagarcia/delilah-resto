@@ -26,23 +26,27 @@ Crear el backend para un sistema de pedidos online para un restaurante.
 - Obtener todos los Usuarios
 ----------------------------------------------------------------------------------------------------------
 
-1. Clonar el proyecto desde tu consola
+1. Clonar el proyecto desde tu consola 🚀
 
 copia y pega esta línea de comando:
 
-- git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
+```
+git clone https://github.com/Ifrainmedinagarcia/delilah-resto.git
+```
 
 ----------------------------------------------------------------------------------------------------------
 
-2. Instalar dependecias
+2. Instalar dependecias 🔧
 
 copia y pega esta línea de comando:
 
-- npm i
+```
+npm i
+```
 
 ----------------------------------------------------------------------------------------------------------
 
-3. Crear Base de Datos
+3. Crear Base de Datos ⚙️
 
 Al clonar el proyecto hay un archivo llamado db.slq ahí están 
 todas las instrucciones para la creación las tablas que debes 
@@ -52,7 +56,7 @@ hacer la relación entre las tablas.
 
 ----------------------------------------------------------------------------------------------------------
 
-4. Crear archivo .env
+4. Crear archivo .env 🖇️
 
 Debes crear un archivo .env para guardar las variables de entornos:
 
@@ -70,7 +74,7 @@ del usuario para hacer operaciones).
 
 ----------------------------------------------------------------------------------------------------------
 
-5. Inicia el servidor
+5. Inicia el servidor 🚀
 
 Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de código(en la consola) y estando en la carpeta delilah-resto puedes introducir cualquiera de estos comandos:
    
@@ -84,7 +88,7 @@ Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de c
 
 ----------------------------------------------------------------------------------------------------------
 
-7. EDPOINT
+7. EDPOINT ✒️
 
 #API Desing Rutas:
 
@@ -92,10 +96,19 @@ Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de c
 
 - Identificarnos: POST api/auth/login
 
-- Agregar Productos: POST api/products
+- Obtener platos: GET api/meals
 
-- Consultar Productos: GET api/products
+- Obtener plato por ID: GET api/meals/:mealsId
+
+- Crear plato: POST api/meals
+
+- Actualizar plato: PUT api/meals/:mealsId
+
+- Eliminar plato : DELETE api/meals/:mealsId
 
 - Eliminar Productos: DELETE apis/products/:productId
 
 - Actualizar Productos: PUT api/products/:productId
+
+
+
