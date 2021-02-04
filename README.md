@@ -77,10 +77,12 @@ del usuario para hacer operaciones).
 5. Inicia el servidor 🚀
 
 Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de código(en la consola) y estando en la carpeta delilah-resto puedes introducir cualquiera de estos comandos:
-   
-- node app.js
-- nodemon app.js
-- npm start
+
+```
+node app.js
+nodemon app.js
+npm start
+```
 
 ----------------------------------------------------------------------------------------------------------
 
@@ -90,7 +92,16 @@ Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de c
 
 7. EDPOINT ✒️
 
-#API Desing Rutas:
+#API Desing:
+
+| Metodo  | Enpoint          | Body                                                     |   |   |
+|---------|------------------|----------------------------------------------------------|---|---|
+| POST    | api/auth/register|{ email, contrasena}                                      |   |   |
+| POST    | api/auth/login   |{nombre_user, email, phone, address, contrasena, id_role} |   |   |
+|         |                  |                                                          |   |   |
+
+
+
 
 - Registrarnos: POST api/auth/register
 
