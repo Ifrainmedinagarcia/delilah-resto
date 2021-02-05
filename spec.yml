@@ -5,7 +5,7 @@ info:
   title: "Delilah Restó"
   termsOfService: "http://localhost:3000/v1/api/"
   contact:
-    email: "user@consorcios.com"
+    email: "medina.ifrain@gmail.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -31,8 +31,8 @@ tags:
     description: "Documentacion externa de orders"
     url: "http://localhost:3000/v1/api/orders"
 schemes:
+- "https"
 - "http"
-
 paths:
   /register:
     post:
@@ -91,35 +91,29 @@ paths:
       tags:
       - "users"
       summary: "Obtener todos los usuarios"
-      description: "Obtener todos los usuarios"
-      operationId: "Obtener todos los usuarios"
+      description: ""
+      operationId: ""
       produces:
       - "application/json"
       parameters:
-      - name: "status"
-        in: "query"
-        description: ""
+      - name: "token"
+        in: "header"
         required: true
-        type: "array"
-        items:
-          type: "string"
-          enum:
-          - "available"
-          - "pending"
-          - "sold"
-          default: "available"
-        collectionFormat: "multi"
+        type: "string"
       responses:
         "200":
           description: "Operacion Realizada"
           schema:
-            type: "object"
-            items:
-              $ref: "#/definitions/users"
+            $ref: "#/definitions/users"
         "404":
           description: "Usuarios no encontrados"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
+
     post:
       tags:
       - "users"
@@ -131,7 +125,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
@@ -152,24 +146,28 @@ paths:
           description: "Usuario ya existe"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
 
-  /users/{userId}:
+  /users/{id_user}:
     get:
       tags:
       - "users"
       summary: "Busco un usuario por Id"
       description: "Retorno un usuario"
-      operationId: "obtenerUsuarioPorId"
+      operationId: ""
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "userId"
+      - name: "id_user"
         in: "path"
-        description: "Identifica el id del propietario"
+        description: "Identifica el id del usuario"
         required: true
         type: "integer"
         format: "int64"
@@ -182,6 +180,10 @@ paths:
           description: "Usuarios no encontrados"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
           
     put:
       tags:
@@ -194,25 +196,29 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "usersId"
+      - name: "id_user"
         in: "path"
-        description: ""
+        description: "ID of pet to return"
         required: true
         type: "integer"
         format: "int64"
-        schema:
-          $ref: "#/definitions/userStatus"
       responses:
         "204":
           description: "user actulizado"
+          schema:
+            $ref: "#/definitions/roleUser"
         "400":
           description: "error en la actualización"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
 
     delete:
       tags:
@@ -223,11 +229,11 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "usersId"
+      - name: "id_user"
         in: "path"
         description: "Eliminar usuario identificado"
         required: true
@@ -238,6 +244,10 @@ paths:
           description: "user eliminado"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
           
   /meals:
     post:
@@ -251,7 +261,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
@@ -272,6 +282,10 @@ paths:
           description: "error en la creación"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
     get:
       tags:
       - "meals"
@@ -280,20 +294,6 @@ paths:
       operationId: ""
       produces:
       - "application/json"
-      parameters:
-      - name: "status"
-        in: "query"
-        description: ""
-        required: true
-        type: "array"
-        items:
-          type: "string"
-          enum:
-          - "available"
-          - "pending"
-          - "sold"
-          default: "available"
-        collectionFormat: "multi"
       responses:
         "200":
           description: "Operacion Realizada"
@@ -306,19 +306,19 @@ paths:
         "500":
           description: "Error inesperado"
   
-  /meals/{mealsId}:
+  /meals/{id_meal}:
     get:
       tags:
-      - "users"
+      - "meals"
       summary: "Busco un plato por Id"
       description: ""
       operationId: ""
       produces:
       - "application/json"
       parameters:
-      - name: "mealsId"
+      - name: "id_meal"
         in: "path"
-        description: "Identifica el id del propietario"
+        description: "obtiene un plato por su ID"
         required: true
         type: "integer"
         format: "int64"
@@ -331,7 +331,6 @@ paths:
           description: "error en la búsqueda"
         "500":
           description: "Error inesperado"
-          
     put:
       tags:
       - "meals"
@@ -343,25 +342,29 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "mealsId"
+      - name: "id_meal"
         in: "path"
         description: ""
         required: true
         type: "integer"
         format: "int64"
-        schema:
-          $ref: "#/definitions/meals"
       responses:
         "204":
           description: "plato actulizado"
+          schema:
+            $ref: "#/definitions/meals"
         "400":
           description: "error en la actualización"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
           
     delete:
       tags:
@@ -372,11 +375,11 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "mealsId"
+      - name: "id_meal"
         in: "path"
         description: "Eliminar plato"
         required: true
@@ -387,6 +390,10 @@ paths:
           description: "plato eliminado"
         "500":
           description: "Error inesperado"
+      security:
+        - routes_auth:
+          - "write:delilah"
+          - "read:delilah"
           
   /orders:
     get:
@@ -398,16 +405,10 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "orders"
-        in: "path"
-        description: ""
-        required: true
-        type: "integer"
-        format: "int64"
       responses:
         "200":
           description: "Operacion Realizada"
@@ -417,6 +418,10 @@ paths:
           description: "Usuarios no encontrados"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
           
     post:
       tags:
@@ -429,7 +434,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
@@ -450,12 +455,16 @@ paths:
           description: "error en la creación"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
   
-  /orders/{orderId}:
+  /orders/{id_order}:
     put:
       tags:
       - "orders"
-      summary: "Modifico el plato de comida"
+      summary: "Modifico el status de la orden"
       description: ""
       operationId: ""
       consumes:
@@ -463,25 +472,29 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "orderId"
+      - name: "id_order"
         in: "path"
         description: ""
         required: true
         type: "integer"
         format: "int64"
-        schema:
-          $ref: "#/definitions/orderStatus"
       responses:
         "204":
-          description: "orden actulizado"
+          description: "orden actulizada"
+          schema:
+            $ref: "#/definitions/statusOrder"
         "400":
           description: "error en la actualización"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
     delete:
       tags:
       - "orders"
@@ -491,11 +504,11 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "mealsId"
+      - name: "id_order"
         in: "path"
         description: "Eliminar orden"
         required: true
@@ -506,6 +519,10 @@ paths:
           description: "orden eliminada"
         "500":
           description: "Error inesperado"
+      security:
+      - routes_auth:
+        - "write:delilah"
+        - "read:delilah"
           
   /orders/user:
     get:
@@ -517,16 +534,10 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "Authorization"
+      - name: "token"
         in: "header"
         required: true
         type: "string"
-      - name: "orders"
-        in: "path"
-        description: ""
-        required: true
-        type: "integer"
-        format: "int64"
       responses:
         "200":
           description: "Operacion Realizada"
@@ -536,7 +547,10 @@ paths:
           description: "orden no encontrados"
         "500":
           description: "Error inesperado"
-  
+      security:
+      - routes_auth:
+        - "read:delilah"
+
 definitions:
   usersRegister:
     type: "object"
@@ -585,17 +599,13 @@ definitions:
       id_role:
         type: "integer"
         format: "int32"
-        
-  userStatus:
-    type: "object"
-    properties:
-       id_role:
-          type: "integer"
-          format: "int32"
-          
+
   meals:
     type: 'object'
     properties:
+      id_meal:
+        type: "integer"
+        format: "int32" 
       nombre_meal:
         type: 'string'
       precio: 
@@ -607,28 +617,46 @@ definitions:
   orders:
     type: 'object'
     properties:
-      id_user:
+      id_order:
         type: "integer"
         format: "int32"
-      id_meal:
-        type: "integer"
-        format: "int32"
-      id_forma_pago:
-        type: "integer"
-        format: "int32"
+      hora:
+        type: "string"
+      nombre_meal:
+        type: "string"
+      nombre_forma_pago:
+          type: "string"
+      nombre_user:
+        type: "string"
+      address:
+        type: "string"
+      email:
+        type: "string"
+      nombre_status:
+        type: "string"
+        
+  statusOrder:
+    type: 'object'
+    properties:
       id_status:
         type: "integer"
         format: "int32"
-        
-  orderStatus:
-    type: "object"
+  
+  roleUser:
+    type: 'object'
     properties:
-       id_status:
-          type: "integer"
-          format: "int32"
-      
+      id_role:
+        type: "integer"
+        format: "int32"
 
-        
+securityDefinitions:
+  routes_auth:
+    type: "oauth2"
+    authorizationUrl: "http://localhost:3000/v1/api/"
+    flow: "implicit"
+    scopes:
+      write:delilah: "modifica elementos en la api"
+      read:delilah: "lee elementos de la API"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
