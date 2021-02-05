@@ -49,7 +49,7 @@ npm i
 3. Crear Base de Datos ⚙️
 
 Al clonar el proyecto hay un archivo llamado db.sql ahí están 
-todas las instrucciones para la creación las tablas que debes 
+todas las instrucciones para la creación de las tablas que debes 
 crear para poder iniciar el servidor con la base de datos. 
 También se encuentran la creación de las FOREIGN KEY para 
 hacer la relación entre las tablas.
@@ -58,7 +58,7 @@ hacer la relación entre las tablas.
 
 4. Configurar archivo .env 🖇️
 
-Debes crear un archivo .env para guardar las variables de entornos (en el proyecto tienes un archivo llamado .envTemplate para que puedas guiarte):
+Debes crear un archivo .env para guardar las variables de entorno (en el proyecto tienes un archivo llamado .envTemplate para que puedas guiarte):
 
 - TOKEN_SECRET
 - EXPIRES
