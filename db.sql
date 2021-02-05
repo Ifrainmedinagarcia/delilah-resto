@@ -4,7 +4,7 @@ CREATE DATABASE delilah
 -- Usa la base de datos
 use delilah
 
--- Crea las tabalas correspondientes
+-- Crea las tablas correspondientes
 CREATE table meals (
 	id_meal int not null primary key auto_increment,
 	nombre_meal varchar(255),
@@ -19,7 +19,7 @@ CREATE table users (
 	email varchar(255) not null unique,
 	phone varchar(255),
 	address varchar(255),
-	contraseña varchar(255),
+	contrasena varchar(255),
 	id_role int
 );
 
@@ -46,7 +46,6 @@ CREATE table forma_pago (
 	id_forma_pago int not null primary key auto_increment,
 	nombre_forma_pago varchar(255)
 );
-
 
 -- Crear FOREIGN KEY
 ALTER table users add CONSTRAINT users_fk_1 FOREIGN KEY (id_role) REFERENCES users_roles (id_role);
@@ -76,7 +75,6 @@ INSERT into users_roles (nombre_role) values ('admin');
 INSERT into users_roles (nombre_role) values ('user');
 
 -- Ingresar contenido a la tabla forma_pago
-
 INSERT INTO forma_pago (nombre_forma_pago) values ('Efectivo');
 
 INSERT INTO forma_pago (nombre_forma_pago) values ('Tarjeta de débito');
