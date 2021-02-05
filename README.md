@@ -98,27 +98,27 @@ npm start
 |---------|------------------------|----------------------------------------------------------|---------|------------------------------------|
 | USERS   |                        |                                                          |         |                                    |
 |         |                        |                                                          |         |                                    |
-| POST    | api/auth/register      |{email, contrasena}                                       |         | Registra un usuario nuevo          |
-| POST    | api/auth/login         |{nombre_user, email, phone, address, contrasena, id_role} |         | Inicio de sesión del usuario       |
-| GET     | api/users              |                                                          | {TOKEN} | Obtiene todos los usuarios (Admin) |
-| POST    | api/users              |{nombre_user, email, phone, address, contrasena, id_role} | {TOKEN} | Crear un nuevo usuario (Admin)     |
-| GET     | api/users/:userId      |                                                          | {TOKEN} | Obtiene usuario por su ID (Admin)  |
-| PUT     | api/users/:userId      |{id_role}                                                 | {TOKEN} | Actualiza rol del usuario (Admin)  |
-| DELETE  | api/users/:userId      |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina Usuario (Admin)            |
+| POST    | /v1/api/auth/register  |{email, contrasena}                                       |         | Registra un usuario nuevo          |
+| POST    | /v1/api/auth/login     |{nombre_user, email, phone, address, contrasena, id_role} |         | Inicio de sesión del usuario       |
+| GET     | /v1/api/users          |                                                          | {TOKEN} | Obtiene todos los usuarios (Admin) |
+| POST    | /v1/api/users          |{nombre_user, email, phone, address, contrasena, id_role} | {TOKEN} | Crear un nuevo usuario (Admin)     |
+| GET     | /v1/api/users/:userId  |                                                          | {TOKEN} | Obtiene usuario por su ID (Admin)  |
+| PUT     | /v1/api/users/:userId  |{id_role}                                                 | {TOKEN} | Actualiza rol del usuario (Admin)  |
+| DELETE  | /v1/api/users/:userId  |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina Usuario (Admin)            |
 |         |                        |                                                          |         |                                    |
 | MEALS   |                        |                                                          |         |                                    |
 |         |                        |                                                          |         |                                    |
-| POST    | api/meals              |{nombre_meal, precio, img}                                | {TOKEN} | Crea un plato (Admin)              |
-| GET     | api/meals              |                                                          |         | Devuelve todos los platos          |
-| GET     | api/meals/:mealsId     |                                                          |         | Devuelve un plato según su ID      |
-| PUT     | api/meals/:mealsId     |{nombre_meal, precio, img}                                | {TOKEN} | Actualiza un plato (Admin)         |
-| DELETE  | api/meals/:mealsId     |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina un plato (Admin)           |
+| POST    | /v1/api/meals          |{nombre_meal, precio, img}                                | {TOKEN} | Crea un plato (Admin)              |
+| GET     | /v1/api/meals          |                                                          |         | Devuelve todos los platos          |
+| GET     | /v1/api/meals/:mealsId |                                                          |         | Devuelve un plato según su ID      |
+| PUT     | /v1/api/meals/:mealsId |{nombre_meal, precio, img}                                | {TOKEN} | Actualiza un plato (Admin)         |
+| DELETE  | /v1/api/meals/:mealsId |{mealsID} (por parámetro)                                 | {TOKEN} | Elimina un plato (Admin)           |
 |         |                        |                                                          |         |                                    |
 | ORDERS  |                        |                                                          |         |                                    |
 |         |                        |                                                          |         |                                    |
-| POST    | api/orders             |{id_user, id_meal, id_forma_pago, id_status}              | {TOKEN} | Crea una nueva orden               |
-| GET     | api/orders             |                                                          | {TOKEN} | Obtiene todas las órdenes (Admin)  |
-| GET     | api/orders/user        |                                                          | {TOKEN} | Obtiene las órdener del usuario    |
-| PUT     | api/orders/:orderId    |{orderId} (por parámetro)                                 | {TOKEN} | Actualiza status orden (Admin)     |
-| DELETE  | api/orders/:orderId    |{orderId} (por parámetro)                                 | {TOKEN} | Elimina la orden (Admin)           |
+| POST    | /v1/api/orders         |{id_user, id_meal, id_forma_pago, id_status}              | {TOKEN} | Crea una nueva orden               |
+| GET     | /v1/api/orders         |                                                          | {TOKEN} | Obtiene todas las órdenes (Admin)  |
+| GET     | /v1/api/orders/user    |                                                          | {TOKEN} | Obtiene las órdener del usuario    |
+| PUT     | /v1/api/orders/:orderId|{orderId} (por parámetro)                                 | {TOKEN} | Actualiza status orden (Admin)     |
+| DELETE  | /v1/api/orders/:orderId|{orderId} (por parámetro)                                 | {TOKEN} | Elimina la orden (Admin)           |
 
