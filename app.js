@@ -30,7 +30,7 @@ app.use('/v1/api/orders', orderRoutes)
 
 
 app.listen(PORT, () =>{
-    console.log(`Server estarted in the PORT ${PORT}`);
+    console.log(`Server started in the PORT ${PORT}`);
 })
 
 
